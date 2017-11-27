@@ -27,8 +27,16 @@ namespace UnitTestingMVCnAPIRoutes.Controllers.Api
             return userStore;
         }
 
+        // GET: api/users/special
+        [Route("v2/users/special")]
+        public IEnumerable<User> GetSpecial()
+        {
+            return userStore.Take(3);
+        }
+
         // GET: api/users/5
         [Route("v1/users/{id:int}")]
+        // Uncomment the line below to fix the unit tests.
         //[Route("v2/users/{id:int}")]
         public User Get(int id)
         {
