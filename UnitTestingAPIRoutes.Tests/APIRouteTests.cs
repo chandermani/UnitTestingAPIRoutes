@@ -11,10 +11,11 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Linq;
+using UnitTestingAPIRoutes.Controllers.Api;
 
-namespace UnitTestingMVCnAPIRoutes.Tests
+namespace UnitTestingAPIRoutes.Tests
 {
-    public class APIRouteTests: IClassFixture<RouteFixture>
+    public class APIRouteTests : IClassFixture<RouteFixture>
     {
         private readonly RouteFixture routeFixture;
 
@@ -34,7 +35,63 @@ namespace UnitTestingMVCnAPIRoutes.Tests
         [MemberData(nameof(RouteInputsV2.UserEndpoints), MemberType = typeof(RouteInputsV2))]
         public void Should_Resolve_V2_Routes_For_Users_API(RouteTheoryInput routeInput)
         {
+            // The test fails, unless you go and uncomment //[Route("v2/users/{id:int}")] on UsersController.
             Should_Hit_Correct_Controller_Action_On_API_Calls(routeInput);
+        }
+
+        /// <summary>
+        /// Test to highlight how to test a single route.
+        /// </summary>
+        [Fact]
+        public void Should_Resolve_V1_Get_Users_Route()
+        {
+            var configuration = new HttpConfiguration();
+
+            WebApiConfig.Register(configuration);
+
+            var controllerTypeResolver = new Mock<IHttpControllerTypeResolver>();
+
+            var controllerTypes = GetAllControllerTypes();
+
+
+            controllerTypeResolver.Setup(r => r.GetControllerTypes(It.IsAny<IAssembliesResolver>())).Returns(controllerTypes);
+            configuration.Services.Replace(typeof(IHttpControllerTypeResolver), controllerTypeResolver.Object);
+            configuration.EnsureInitialized();
+
+            var request = new HttpRequestMessage(HttpMethod.Get, "http://localhost/api/v1/users");
+
+            var routeData = configuration.Routes.GetRouteData(request);
+
+            request.SetConfiguration(configuration);
+            if (routeData != null)
+            {
+                // For incorrectly formed route url,route data is null. This request may fail later and we can check status code.
+                request.SetRouteData(routeData);
+            }
+
+            var controllerSelector = configuration.Services.GetHttpControllerSelector();
+            var actionSelector = configuration.Services.GetActionSelector();
+
+            //act
+            var controllerDescriptor = controllerSelector.SelectController(request);
+            var controllerContext = new HttpControllerContext(configuration, routeData, request)
+            {
+                ControllerDescriptor = controllerDescriptor,
+                RequestContext = new HttpRequestContext()
+                {
+                    Configuration = configuration,
+                    RouteData = routeData
+                }
+            };
+
+            var actionDescriptor = actionSelector.SelectAction(controllerContext);
+
+            // assert
+            controllerDescriptor.ControllerType.Should().Be(typeof(UsersController));
+
+            actionDescriptor.ActionName.Should().Be("Get");
+
+            actionDescriptor.GetParameters().Select(p => p.ParameterName).Should().BeEquivalentTo(new string[] { });
         }
 
         private void Should_Hit_Correct_Controller_Action_On_API_Calls(RouteTheoryInput input)
@@ -84,6 +141,16 @@ namespace UnitTestingMVCnAPIRoutes.Tests
             {
                 ex.Response.StatusCode.Should().Be(input.ResponseStatusCode);
             }
+        }
+
+        private Collection<Type> GetAllControllerTypes()
+        {
+            Collection<Type> controllerTypes = new Collection<Type>();
+            var baseControllerType = typeof(ApiController);
+            Assembly.GetAssembly(typeof(MvcApplication))
+                .GetTypes().Where(t => baseControllerType.IsAssignableFrom(t)).ToList().ForEach(t => controllerTypes.Add(t));
+
+            return controllerTypes;
         }
 
     }

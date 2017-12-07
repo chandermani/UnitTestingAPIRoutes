@@ -10,8 +10,8 @@
     <ProjectGuid>{9F5FCE9E-59B8-42FE-8369-E11CCAA77633}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>UnitTestingMVCnAPIRoutes.Tests</RootNamespace>
-    <AssemblyName>UnitTestingMVCnAPIRoutes.Tests</AssemblyName>
+    <RootNamespace>UnitTestingAPIRoutes.Tests</RootNamespace>
+    <AssemblyName>UnitTestingAPIRoutes.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <NuGetPackageImportStamp>
@@ -94,9 +94,9 @@
     <Analyzer Include="..\packages\xunit.analyzers.0.7.0\analyzers\dotnet\cs\xunit.analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\UnitTestingMVCnAPIRoutes\UnitTestingMVCnAPIRoutes.csproj">
+    <ProjectReference Include="..\UnitTestingAPIRoutes\UnitTestingAPIRoutes.csproj">
       <Project>{26faa26b-95cf-42f8-ace5-ad8ec4af4d2c}</Project>
-      <Name>UnitTestingMVCnAPIRoutes</Name>
+      <Name>UnitTestingAPIRoutes</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

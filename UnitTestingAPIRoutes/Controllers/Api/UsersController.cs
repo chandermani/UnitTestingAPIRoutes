@@ -5,7 +5,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 
-namespace UnitTestingMVCnAPIRoutes.Controllers.Api
+namespace UnitTestingAPIRoutes.Controllers.Api
 {
     [RoutePrefix("api")]
     public class UsersController : ApiController

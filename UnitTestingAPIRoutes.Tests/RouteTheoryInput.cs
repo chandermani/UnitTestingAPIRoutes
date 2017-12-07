@@ -6,7 +6,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace UnitTestingMVCnAPIRoutes.Tests
+namespace UnitTestingAPIRoutes.Tests
 {
     public class RouteTheoryInput
     {

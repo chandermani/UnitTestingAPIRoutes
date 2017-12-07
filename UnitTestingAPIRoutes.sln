@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27004.2002
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestingMVCnAPIRoutes", "UnitTestingMVCnAPIRoutes\UnitTestingMVCnAPIRoutes.csproj", "{26FAA26B-95CF-42F8-ACE5-AD8EC4AF4D2C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestingAPIRoutes", "UnitTestingAPIRoutes\UnitTestingAPIRoutes.csproj", "{26FAA26B-95CF-42F8-ACE5-AD8EC4AF4D2C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestingMVCnAPIRoutes.Tests", "UnitTestingMVCnAPIRoutes.Tests\UnitTestingMVCnAPIRoutes.Tests.csproj", "{9F5FCE9E-59B8-42FE-8369-E11CCAA77633}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestingAPIRoutes.Tests", "UnitTestingAPIRoutes.Tests\UnitTestingAPIRoutes.Tests.csproj", "{9F5FCE9E-59B8-42FE-8369-E11CCAA77633}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
